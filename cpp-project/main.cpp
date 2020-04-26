@@ -170,6 +170,5 @@ int main()
     customTest();
     realTest();    //   Takes some time to do, see its description
 
-    research(500);
+    research(10000);
 }
-
