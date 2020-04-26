@@ -48,7 +48,7 @@ public:
         }
     }
 public:
-    LargeInteger<maxDigit> operator+=(const LargeInteger<maxDigit>& other)
+    LargeInteger<maxDigit>& operator+=(const LargeInteger<maxDigit>& other)
     {
         if (size() < other.size())
         {
