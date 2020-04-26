@@ -34,7 +34,7 @@ void research(size_t testSize)
      */
 
     std::ofstream file;
-    file.open("../../tables/testResults.csv");
+    file.open("../../data/testResults.csv");
     file << "Size," << "schoolMult," << "dacMult," << "karatsubaMult" << std::fixed << std::endl;
 
     //    log step + last number
@@ -89,7 +89,7 @@ void realTest()
      */
 
     std::ifstream file;
-    file.open("../../tables/realTest.csv");
+    file.open("../../data/realTest.csv");
 
     std::string str1, str2, strRes;
 

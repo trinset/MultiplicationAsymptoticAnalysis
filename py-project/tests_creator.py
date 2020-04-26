@@ -2,7 +2,7 @@ import random as rnd
 
 #   creates a package with tests
 
-file = open("../tables/realTest.csv", 'w')
+file = open("../data/realTest.csv", 'w')
 
 for k in range(1, 1001):
 

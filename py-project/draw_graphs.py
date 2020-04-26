@@ -23,5 +23,5 @@ def createGraph(fileName, picName):
     plt.clf()
 
 
-createGraph("../tables/testResults500.csv", "../graphs/SmallGraph.png")     # test on numbers up to 500
-createGraph("../tables/testResults10000.csv", "../graphs/MainGraph.png")    # test on numbers up to 10 000
+createGraph("../data/testResults500.csv", "../graphs/SmallGraph.png")     # test on numbers up to 500
+createGraph("../data/testResults10000.csv", "../graphs/MainGraph.png")    # test on numbers up to 10 000
