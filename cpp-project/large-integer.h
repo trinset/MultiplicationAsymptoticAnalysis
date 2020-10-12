@@ -11,7 +11,7 @@
 #include <ctime>
 #include <random>
 
-template <int maxDigit = 10>
+template <int base = 10>
 class LargeInteger
 {
 public:
@@ -48,7 +48,7 @@ public:
         }
     }
 public:
-    LargeInteger<maxDigit>& operator+=(const LargeInteger<maxDigit>& other)
+    LargeInteger<base>& operator+=(const LargeInteger<base>& other)
     {
         if (size() < other.size())
         {
@@ -61,9 +61,9 @@ public:
         for (; i < other.size(); ++i)
         {
             int sum = digit(i) + other.digit(i) + carry;
-            int new_digit = sum % maxDigit;
+            int new_digit = sum % base;
             _digits[i] = new_digit;
-            carry = sum / maxDigit;
+            carry = sum / base;
         }
 
         while (carry)
@@ -71,9 +71,9 @@ public:
             if (i < size())
             {
                 int sum = digit(i) + carry;
-                int new_digit = sum % maxDigit;
+                int new_digit = sum % base;
                 _digits[i] = new_digit;
-                carry = sum / maxDigit;
+                carry = sum / base;
             }
             else
             {
@@ -86,14 +86,14 @@ public:
         return *this;
     }
 
-    LargeInteger<maxDigit> operator+(const LargeInteger<maxDigit>& other) const
+    LargeInteger<base> operator+(const LargeInteger<base>& other) const
     {
-        LargeInteger<maxDigit> res = *this;
+        LargeInteger<base> res = *this;
         res += other;
         return res;
     }
 
-    LargeInteger<maxDigit>& operator-=(const LargeInteger<maxDigit>& other)
+    LargeInteger<base>& operator-=(const LargeInteger<base>& other)
     {
         int carry = 0;
         size_t i = 0;
@@ -104,7 +104,7 @@ public:
             if (_digits[i] < 0)
             {
                 carry = -1;
-                _digits[i] += maxDigit;
+                _digits[i] += base;
             }
             else
             {
@@ -118,7 +118,7 @@ public:
             if (_digits[i] < 0)
             {
                 carry = -1;
-                _digits[i] += maxDigit;
+                _digits[i] += base;
             }
             else
             {
@@ -129,14 +129,14 @@ public:
         return *this;
     }
 
-    LargeInteger<maxDigit> operator- (const LargeInteger<maxDigit>& other) const
+    LargeInteger<base> operator- (const LargeInteger<base>& other) const
     {
-        LargeInteger<maxDigit> res = *this;
+        LargeInteger<base> res = *this;
         res -= other;
         return res;
     }
 
-    bool operator==(const LargeInteger<maxDigit>& other)
+    bool operator==(const LargeInteger<base>& other)
     {
         if (size() != other.size())
         {
@@ -154,7 +154,7 @@ public:
         return true;
     }
 
-    bool operator!=(const LargeInteger<maxDigit>& other)
+    bool operator!=(const LargeInteger<base>& other)
     {
         return !(*this == other);
     }
@@ -169,7 +169,7 @@ public:
         return _digits[index];
     }
 
-    friend std::ostream& operator<< (std::ostream& out, const LargeInteger<maxDigit>& num)
+    friend std::ostream& operator<< (std::ostream& out, const LargeInteger<base>& num)
     {
         for (size_t i = 0; i < num.size(); ++i)
         {
@@ -179,10 +179,10 @@ public:
         return out;
     }
 public:
-    std::pair<LargeInteger<maxDigit>, LargeInteger<maxDigit>> split(size_t cut_size) const
+    std::pair<LargeInteger<base>, LargeInteger<base>> split(size_t cut_size) const
     {
-        LargeInteger<maxDigit> a(std::deque<int>(_digits.begin(), _digits.begin() + cut_size));
-        LargeInteger<maxDigit> b(std::deque<int>(_digits.begin() + cut_size, _digits.end()));
+        LargeInteger<base> a(std::deque<int>(_digits.begin(), _digits.begin() + cut_size));
+        LargeInteger<base> b(std::deque<int>(_digits.begin() + cut_size, _digits.end()));
 
         if (a.size() > b.size())
         {
