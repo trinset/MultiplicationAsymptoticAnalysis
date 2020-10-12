@@ -115,7 +115,7 @@ void realTest()
     file.close();
 }
 
-void randomTest(const int numOfDigits)
+void randomTest(int numOfDigits)
 {
     /* Tests the behaviour of functions
      * for a given number of digits
