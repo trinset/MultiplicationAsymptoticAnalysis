@@ -3,7 +3,7 @@
 
 #include "large-integer.h"
 
-template <int maxDigit = 10>
+template <int base = 10>
 class Multiplicator
 {
 public:
@@ -13,20 +13,20 @@ public:
 
         if (my_size)
         {
-            str += (char)(rand() % (maxDigit - 1) + 1 + 48);
+            str += (char)(rand() % (base - 1) + 1 + 48);
         }
 
         for (size_t i = 1; i < my_size; ++i)
         {
-            str += (char)(rand() % maxDigit + 48);
+            str += (char)(rand() % base + 48);
         }
 
         return str;
     }
 public:
-    static LargeInteger<maxDigit> schoolMult (const LargeInteger <maxDigit>& num1, const LargeInteger <maxDigit>& num2)
+    static LargeInteger<base> schoolMult (const LargeInteger <base>& num1, const LargeInteger <base>& num2)
     {
-        LargeInteger<maxDigit> temp;
+        LargeInteger<base> temp;
 
         for (size_t k = 0; k < num2.size(); ++k)
         {
@@ -36,14 +36,14 @@ public:
             {
                 if (i + k >= temp.size())
                 {
-                    temp.pushBack((num1.digit(i) * num2.digit(k) + carry) % maxDigit);
-                    carry = (num1.digit(i) * num2.digit(k) + carry) / maxDigit;
+                    temp.pushBack((num1.digit(i) * num2.digit(k) + carry) % base);
+                    carry = (num1.digit(i) * num2.digit(k) + carry) / base;
                 }
                 else
                 {
                     temp[i + k] += num1.digit(i) * num2.digit(k) + carry;
-                    carry = temp.digit(i + k) / maxDigit;
-                    temp[i + k] %= maxDigit;
+                    carry = temp.digit(i + k) / base;
+                    temp[i + k] %= base;
                 }
             }
 
@@ -54,7 +54,7 @@ public:
         return temp;
     }
 
-    static LargeInteger<maxDigit> dacMult(const LargeInteger <maxDigit>& num1, const LargeInteger <maxDigit>& num2)
+    static LargeInteger<base> dacMult(const LargeInteger <base>& num1, const LargeInteger <base>& num2)
     {
         if (num1.size() <= 80)
             return schoolMult(num1, num2);
@@ -69,10 +69,10 @@ public:
         auto a = num1.split(m);
         auto b = num2.split(m);
 
-        LargeInteger<maxDigit> a1b1 = dacMult(a.second, b.second);
-        LargeInteger<maxDigit> a1b2 = dacMult(a.second, b.first);
-        LargeInteger<maxDigit> a2b1 = dacMult(a.first, b.second);
-        LargeInteger<maxDigit> a2b2 = dacMult(a.first, b.first);
+        LargeInteger<base> a1b1 = dacMult(a.second, b.second);
+        LargeInteger<base> a1b2 = dacMult(a.second, b.first);
+        LargeInteger<base> a2b1 = dacMult(a.first, b.second);
+        LargeInteger<base> a2b2 = dacMult(a.first, b.first);
 
         a1b2 += a2b1;
         a1b2.shift(m);
@@ -81,7 +81,7 @@ public:
         return a1b1 + a1b2 + a2b2;
     }
 
-    static LargeInteger<maxDigit> karatsubaMult(const LargeInteger<maxDigit>& num1, const LargeInteger<maxDigit>& num2)
+    static LargeInteger<base> karatsubaMult(const LargeInteger<base>& num1, const LargeInteger<base>& num2)
     {
         if (num1.size() <= 20)
         {
@@ -98,11 +98,11 @@ public:
         auto a = num1.split(m);
         auto b = num2.split(m);
 
-        LargeInteger<maxDigit> a1_a2 = a.first + a.second;
-        LargeInteger<maxDigit> b1_b2 = b.first + b.second;
-        LargeInteger<maxDigit> a1b1 = karatsubaMult(a.second, b.second);
-        LargeInteger<maxDigit> a2b2 = karatsubaMult(a.first, b.first);
-        LargeInteger<maxDigit> a1_a2b1_b2 = karatsubaMult(a1_a2, b1_b2);
+        LargeInteger<base> a1_a2 = a.first + a.second;
+        LargeInteger<base> b1_b2 = b.first + b.second;
+        LargeInteger<base> a1b1 = karatsubaMult(a.second, b.second);
+        LargeInteger<base> a2b2 = karatsubaMult(a.first, b.first);
+        LargeInteger<base> a1_a2b1_b2 = karatsubaMult(a1_a2, b1_b2);
 
         a1_a2b1_b2 -= a1b1;
         a1_a2b1_b2 -= a2b2;
