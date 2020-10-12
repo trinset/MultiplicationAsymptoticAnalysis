@@ -1,9 +1,9 @@
 #include <vector>
 #include "multiplicator.h"
 
-template <int maxDigit = 10>
-double measureTime(LargeInteger<maxDigit> algo(const LargeInteger<maxDigit>&, const LargeInteger<maxDigit>&),
-                   const LargeInteger<maxDigit>& first, const LargeInteger<maxDigit>& second, short times)
+template <int base = 10>
+double measureTime(LargeInteger<base> algo(const LargeInteger<base>&, const LargeInteger<base>&),
+                   const LargeInteger<base>& first, const LargeInteger<base>& second, short times)
 {
     /*  Function to measure time of a test
      *  Tests all of the given algorithms
@@ -18,7 +18,7 @@ double measureTime(LargeInteger<maxDigit> algo(const LargeInteger<maxDigit>&, co
     for (short i = 0; i < times; ++i)
     {
         QueryPerformanceCounter(&start);
-        LargeInteger<maxDigit> res = algo(first, second);
+        LargeInteger<base> res = algo(first, second);
         QueryPerformanceCounter(&end);
         time += static_cast<double>(end.QuadPart - start.QuadPart) / 10000;
     }
