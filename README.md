@@ -1,2 +1,2 @@
-# dsba-ads2020-hw1
-Mutiplication Comparison by Oleg Vasyutin
+# Asymptotic analysis of multiplication algorithms
+by Oleg Vasyutin
